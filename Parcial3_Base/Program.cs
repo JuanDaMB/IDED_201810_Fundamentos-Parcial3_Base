@@ -37,7 +37,12 @@ namespace Parcial3_Base
         /// <returns>'true' si las matrices pueden sumarse, 'false' de otro modo</returns>
         public bool SePuedenSumarMatrices(int[,] A, int[,] B)
         {
-            return false;
+            bool suma2 = true;
+            if ((A.GetLength(0) != B.GetLength(0)) || (A.GetLength(1) != B.GetLength(1)))
+            {
+                suma2 = false;
+            }
+            return suma2;
         }
 
         /// <summary>
@@ -47,7 +52,20 @@ namespace Parcial3_Base
         /// <returns></returns>
         public float PromedioDeArreglo(int[] arr)
         {
-            return 0F;
+            float suma = 0;
+            if (arr.Length < 1)
+            {
+                suma = 0;
+            }
+            if (arr.Length >= 1)
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    suma += arr[i];
+                }
+                suma = suma / arr.Length;
+            }
+            return suma;
         }
 
         /// <summary>
@@ -58,7 +76,18 @@ namespace Parcial3_Base
         /// <returns>La cantidad de veces que aparece char en input</returns>
         public int ConteoDeCaracter(string input, char car)
         {
-            return 0;
+            
+            int N= 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == car)
+                {
+                    N++;
+                }
+
+
+            }
+            return N;
         }
 
         #endregion EASY
@@ -74,7 +103,14 @@ namespace Parcial3_Base
         /// <returns>Un arreglo cuyos elementos están en orden inverso a arr</returns>
         public int[] InvertirArreglo(int[] arr)
         {
-            return null;
+            int[] arr2 = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+               
+                    arr2[i] = arr[arr.Length - (1 + i)];
+                
+            }
+            return arr2;
         }
 
         /// <summary>
@@ -85,7 +121,18 @@ namespace Parcial3_Base
         /// <returns>'true' si input es palíndromo, `false` de otro modo</returns>
         public bool EsPalindromo(string input)
         {
-            return false;
+            bool pal = true;
+            string arr = input;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (arr[i] != input[input.Length - (1 + i)])
+                {
+                    pal = false;
+                }
+               
+
+            }
+            return pal;
         }
 
         /// <summary>
@@ -95,7 +142,26 @@ namespace Parcial3_Base
         /// <returns>El número correspondiente a la posición n en la serie de Fibonacci</returns>
         public int CalcularFibonacciEn(int n)
         {
-            return 0;
+            int C1 = 1;
+            int C2 = 1;
+            if (n == 0)
+            {
+                return 0;
+            }
+            if (n == 1)
+            {
+                return 1;
+            }
+            if (n >= 2)
+            {
+                for (int i = 2; i <= n; i++)
+                {
+                    int temp = C1 + C2;
+                    C2 = C1;
+                    C1 = temp;
+                }
+            }
+            return C2;
         }
 
         /// <summary>
@@ -106,7 +172,25 @@ namespace Parcial3_Base
         /// <returns>La matriz AxB</returns>
         public int[,] MultiplicarMatrices(int[,] A, int[,] B)
         {
-            return null;
+            int[,] C = new int[A.GetLength(0),B.GetLength(1)];
+            if (A.GetLength(1) != B.GetLength(0))
+            {
+                return null;
+            }
+            if (A.GetLength(1) == B.GetLength(0))
+            {
+                for (int i = 0; i < A.GetLength(0); i++)
+                {
+                    for (int j = 0; j < B.GetLength(1); j++)
+                    {
+                        for (int k = 0; k < A.GetLength(1); k++)
+                        {
+                            C[i, j] += A[i, k] * B[k, j];
+                        }
+                    }
+                }
+            }
+            return C;
         }
 
         #endregion MEDIUM
@@ -126,6 +210,22 @@ namespace Parcial3_Base
             int hrs = 0;
             int mins = 0;
             int segs = 0;
+
+            if (totalSegs >= 3600)
+            {
+                hrs = totalSegs / 3600;
+                int temp = totalSegs / 3600;
+                totalSegs = totalSegs - (temp*3600);
+            }
+            if ((60 <= totalSegs) && (totalSegs < 3600))
+            {
+                mins = totalSegs / 60;
+                int temp = totalSegs / 60;
+                totalSegs = totalSegs - (temp * 60);
+            }
+            if (totalSegs < 60)
+            {segs = totalSegs;}
+
             return string.Format("{0} hrs : {1} mins : {2} segs", hrs, mins, segs);
         }
 
@@ -141,6 +241,7 @@ namespace Parcial3_Base
         /// <returns>'true' si hay algún punto en que las esferas se toquen, 'false' de otro modo</returns>
         public bool HayColisión(Centro c1, float r1, Centro c2, float r2)
         {
+            
             return false;
         }
 
@@ -151,7 +252,46 @@ namespace Parcial3_Base
         /// <returns>El primer número primo mayor que n</returns>
         public int ProximoPrimo(int n)
         {
-            return 0;
+            bool primos = false;
+            int i = 1 + n;
+            if ((i == 2) || (i == 3) || (i == 5) || (i == 7) || (i == 11) || (i == 13))
+            {
+                primos = true;
+                return i;
+            }
+
+
+            while (primos == false)
+            {
+                
+                if (i != ((i/2)*2))
+                {
+                    if (i != ((i / 3) * 3))
+                    {
+                        if (i != ((i / 5) * 5))
+                        {
+                            if (i != ((i / 7) * 7))
+                            {
+                                if (i != ((i / 11) * 11))
+                                {
+                                    if (i != ((i / 13) * 13))
+                                    {
+                                        primos = true;
+                                        
+                                    }
+                                    else { i++; }
+                                }
+                                else { i++; }
+                            }
+                            else { i++; }
+                        }
+                        else { i++; }
+                    }
+                    else { i++; }
+                }
+                else { i++; }
+            }
+            return i;
         }
 
         /// <summary>
@@ -164,7 +304,30 @@ namespace Parcial3_Base
         /// <returns></returns>
         public int[,] CombinaMatrices(int[,] A, int[,] B)
         {
-            return null;
+            int[,] nueva = new int[A.GetLength(0), A.GetLength(1)];
+            if ((A.GetLength(0) != B.GetLength(0)) || (A.GetLength(1) != B.GetLength(1)))
+            {
+                nueva = null;
+            }
+            if ((A.GetLength(0) == B.GetLength(0)) && (A.GetLength(1) == B.GetLength(1)))
+            {
+            for (int i = 0; i < A.GetLength(0); i++)
+            {
+                for (int j = 0; j < A.GetLength(1); j++)
+                {
+                    if (i == j)
+                    {
+                        nueva[i, j] = A[i, j];
+                    }
+                    if (i != j)
+                    {
+                        nueva[i, j] = B[i, j];
+                    }
+
+                }
+            }
+            }
+            return nueva;
         }
 
         #endregion HARD
